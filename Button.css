@@ -1,13 +1,30 @@
+/* Basic button style */
 .button {
-    -fx-background-color: #04AA6D; /* Green */
-    -fx-text-fill: white;
-    -fx-padding: 15px 32px;
-    -fx-alignment: center;
-    -fx-font-size: 16px;
-    -fx-background-radius: 5px;
-    -fx-cursor: hand;
-    -fx-effect: null;
-    -fx-background-insets: 0, 0, 1, 1;
-    -fx-background-radius: 10px;
-    -fx-transition-duration: 0.4s;
+    -fx-background-color: #2a9d8f; /* Background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Font weight */
+    -fx-padding: 10px 20px; /* Padding */
+    -fx-background-radius: 5px; /* Rounded corners */
+    -fx-border-color: #264653; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-cursor: hand; /* Hand cursor on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-transition: all 0.3s ease; /* Smooth transition for all properties */
 }
+
+    /* Button hover effect */
+    .button:hover {
+        -fx-background-color: #e76f51; /* Change background color on hover */
+        -fx-border-color: #d62828; /* Change border color on hover */
+        -fx-transform: scale(1.05); /* Slightly increase the button size */
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0); /* Stronger shadow */
+    }
+
+    /* Button press effect */
+    .button:pressed {
+        -fx-background-color: #264653; /* Darker background when pressed */
+        -fx-transform: scale(0.98); /* Slightly decrease the button size */
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0); /* Lighter shadow */
+    }
