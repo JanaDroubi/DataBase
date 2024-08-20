@@ -10,6 +10,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -166,7 +168,7 @@
                                                       <Font name="Arial" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER" prefHeight="44.0" prefWidth="144.0" text="Pank Account " textFill="#90030f">
+                                                <Label alignment="CENTER" prefHeight="44.0" prefWidth="144.0" text="Bank Account " textFill="#90030f">
                                                    <font>
                                                       <Font name="Arial" size="18.0" />
                                                    </font>
@@ -433,7 +435,7 @@
                                                             <Font name="Arial" size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label alignment="CENTER" prefHeight="44.0" prefWidth="144.0" text="Pank Account " textFill="#90030f">
+                                                      <Label alignment="CENTER" prefHeight="44.0" prefWidth="144.0" text="Bank Account " textFill="#90030f">
                                                          <font>
                                                             <Font name="Arial" size="18.0" />
                                                          </font>
@@ -609,7 +611,91 @@
                               </Tab>
                               <Tab text="Table ">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="Passenger_table" layoutX="2.0" layoutY="5.0" prefHeight="333.0" prefWidth="623.0">
+                                            <columns>
+                                              <TableColumn fx:id="id_t" prefWidth="57.666656494140625" text="person_Id " />
+                                              <TableColumn fx:id="name_t" prefWidth="75.66668701171875" text="Name" />
+                                                <TableColumn fx:id="nationality_t" prefWidth="75.66665649414062" text="Nationality" />
+                                                <TableColumn fx:id="Gender_t" prefWidth="39.66668701171875" text="G" />
+                                                <TableColumn fx:id="contact_t" prefWidth="93.33331298828125" text="Contact" />
+                                                <TableColumn fx:id="Address_t" minWidth="0.0" prefWidth="82.66668701171875" text="Address" />
+                                                <TableColumn fx:id="Promocpde_t" prefWidth="64.6666259765625" text="PromoCode " />
+                                                <TableColumn fx:id="bank_T" prefWidth="52.66668701171875" text="#Bank" />
+                                                <TableColumn fx:id="Passport_t" prefWidth="75.0" text="#Passport" />
+                                            </columns>
+                                          </TableView>
+                                          <Button fx:id="All_table" cache="true" contentDisplay="TOP" layoutX="2.0" layoutY="358.0" mnemonicParsing="false" onAction="#initialize" prefHeight="43.0" prefWidth="291.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="All" textFill="#f8f8f8">
+                                             <opaqueInsets>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </opaqueInsets>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <font>
+                                                <Font name="Arial" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="Nationality_table" cache="true" contentDisplay="TOP" layoutX="3.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClick2" prefHeight="43.0" prefWidth="160.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Nationality" textFill="#f8f8f8">
+                                             <opaqueInsets>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </opaqueInsets>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <font>
+                                                <Font name="Arial" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="promocode_table" cache="true" contentDisplay="TOP" layoutX="301.0" layoutY="359.0" mnemonicParsing="false" onAction="#onClick2" prefHeight="43.0" prefWidth="204.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Promo Code Range" textFill="#f8f8f8">
+                                             <opaqueInsets>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </opaqueInsets>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <font>
+                                                <Font name="Arial" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="Age_table" cache="true" contentDisplay="TOP" layoutX="305.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClick2" prefHeight="43.0" prefWidth="170.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Age  =" textFill="#f8f8f8">
+                                             <opaqueInsets>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </opaqueInsets>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <font>
+                                                <Font name="Arial" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <TextField fx:id="Nationality_Filter" layoutX="169.0" layoutY="418.0" prefHeight="41.0" prefWidth="126.0" style="-fx-background-color: #ece8dd; -fx-border-width: 1; -fx-border-color: #90030f; -fx-border-radius: 30;">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="age" layoutX="485.0" layoutY="418.0" prefHeight="41.0" prefWidth="138.0" style="-fx-background-color: #ece8dd; -fx-border-width: 1; -fx-border-color: #90030f; -fx-border-radius: 30;">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="557.0" layoutY="350.0" text="-" textFill="#90030f">
+                                             <font>
+                                                <Font name="Arial" size="37.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="max" layoutX="575.0" layoutY="358.0" prefHeight="41.0" prefWidth="45.0" style="-fx-background-color: #ece8dd; -fx-border-width: 1; -fx-border-color: #90030f; -fx-border-radius: 30;">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </TextField>
+                                          <TextField fx:id="min" layoutX="508.0" layoutY="358.0" prefHeight="41.0" prefWidth="45.0" style="-fx-background-color: #ece8dd; -fx-border-width: 1; -fx-border-color: #90030f; -fx-border-radius: 30;">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </TextField>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                           </tabs>

@@ -6,9 +6,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.collections.transformation.FilteredList;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
+import com.example.test.Passenger_table;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class HelloController {
@@ -89,6 +98,46 @@ public class HelloController {
     private ChoiceBox Gender_update;
     @FXML
     private DatePicker Date_Birth_update;
+
+
+    @FXML
+    private TableView<Passenger_table> Passenger_table;
+
+    @FXML
+    private TableColumn<Passenger_table, Integer> id_t;
+
+    @FXML
+    private TableColumn<Passenger_table, String> name_t;
+
+    @FXML
+    private TableColumn<Passenger_table, String> nationality_t;
+
+    @FXML
+    private TableColumn<Passenger_table, String> Gender_t;
+
+    @FXML
+    private TableColumn<Passenger_table, String> contact_t;
+
+    @FXML
+    private TableColumn<Passenger_table, String> Address_t;
+
+    @FXML
+    private TableColumn<Passenger_table, Integer> Promocpde_t;
+
+    @FXML
+    private TableColumn<Passenger_table, Integer> bank_T;
+
+    @FXML
+    private TableColumn<Passenger_table, Integer> Passport_t; // Updated to Integer
+
+    @FXML
+    private Button All_table;
+
+    private ObservableList<Passenger_table> dataList = FXCollections.observableArrayList();
+
+
+
+
 
     @FXML
     protected void onClick1() {
@@ -463,4 +512,80 @@ public class HelloController {
 
 
 
+    @FXML
+    public void initialize() {
+        // Set up the table columns
+        id_t.setCellValueFactory(new PropertyValueFactory<>("id_t"));
+        name_t.setCellValueFactory(new PropertyValueFactory<>("name_t"));
+        nationality_t.setCellValueFactory(new PropertyValueFactory<>("nationality_t"));
+        Gender_t.setCellValueFactory(new PropertyValueFactory<>("Gender_t"));
+        contact_t.setCellValueFactory(new PropertyValueFactory<>("contact_t"));
+        Address_t.setCellValueFactory(new PropertyValueFactory<>("Address_t"));
+        Promocpde_t.setCellValueFactory(new PropertyValueFactory<>("Promocpde_t"));
+        bank_T.setCellValueFactory(new PropertyValueFactory<>("bank_T"));
+        Passport_t.setCellValueFactory(new PropertyValueFactory<>("Passport_t"));
+
+        // Set button action
+        All_table.setOnAction(event -> loadData());
+    }
+
+    private void loadData() {
+        String url = "jdbc:postgresql://localhost:5432/Airport_DataBase";
+        String user = "postgres";
+        String password = "12345678";
+
+
+
+        // SQL query
+        String qry = "SELECT p.p_id, p.P_Name, p.Nationality, p.Gender, p.Contact, p.Address, "
+                + "pas.promocode, p.PAN_Acc, pas.passport_num "
+                + "FROM person p JOIN passenger pas ON p.p_id = pas.p_id";
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = con.prepareStatement(qry);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            // Clear existing data
+            dataList.clear();
+
+            // Process result set
+            while (rs.next()) {
+                int id_t = rs.getInt("p_id");
+                String name_t = rs.getString("P_Name");
+                String nationality_t = rs.getString("Nationality");
+                String Gender_t = rs.getString("Gender");
+                String contact_t = rs.getString("Contact");
+                String Address_t = rs.getString("Address");
+                int Promocpde_t = rs.getInt("promocode");
+                int bank_T = rs.getInt("PAN_Acc");
+                int Passport_t = rs.getInt("passport_num");
+
+                // Create Passenger_table object and add to list
+                Passenger_table passenger = new Passenger_table(id_t, name_t, nationality_t, Gender_t,
+                        contact_t, Address_t, Promocpde_t, bank_T, Passport_t);
+                dataList.add(passenger);
+            }
+
+            // Set data to TableView
+            Passenger_table.setItems(dataList);
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to fetch data from database.", e.getMessage());
+        }
+    }
+
+    private void showAlert(AlertType alertType, String title, String headerText, String contentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
 }
+
+
+
+
+
+
+
