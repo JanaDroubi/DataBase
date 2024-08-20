@@ -11,11 +11,12 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
      //  FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
       // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/test/hello-view.fxml"));
-    //   Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+      //Scene scene = new Scene(fxmlLoader.load(), 900, 600);
 
 
        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+          stage.setResizable(false); // This line makes the window unsizable
         stage.setScene(scene);
         stage.show();
 
