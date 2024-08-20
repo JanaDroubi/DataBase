@@ -1,0 +1,13 @@
+.button {
+    -fx-background-color: #04AA6D; /* Green */
+    -fx-text-fill: white;
+    -fx-padding: 15px 32px;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: null;
+    -fx-background-insets: 0, 0, 1, 1;
+    -fx-background-radius: 10px;
+    -fx-transition-duration: 0.4s;
+}
