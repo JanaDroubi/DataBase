@@ -637,7 +637,7 @@
                                                 <Font name="Arial" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="Nationality_table" cache="true" contentDisplay="TOP" layoutX="3.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClick2" prefHeight="43.0" prefWidth="160.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Nationality" textFill="#f8f8f8">
+                                          <Button fx:id="Nationality_table" cache="true" contentDisplay="TOP" layoutX="3.0" layoutY="416.0" mnemonicParsing="false" onAction="#initialize2" prefHeight="43.0" prefWidth="160.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Nationality" textFill="#f8f8f8">
                                              <opaqueInsets>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </opaqueInsets>
@@ -648,7 +648,7 @@
                                                 <Font name="Arial" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="promocode_table" cache="true" contentDisplay="TOP" layoutX="301.0" layoutY="359.0" mnemonicParsing="false" onAction="#onClick2" prefHeight="43.0" prefWidth="204.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Promo Code Range" textFill="#f8f8f8">
+                                          <Button fx:id="promocode_table" cache="true" contentDisplay="TOP" layoutX="301.0" layoutY="359.0" mnemonicParsing="false" onAction="#initialize3" prefHeight="43.0" prefWidth="204.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Promo Code Range" textFill="#f8f8f8">
                                              <opaqueInsets>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </opaqueInsets>
@@ -659,7 +659,7 @@
                                                 <Font name="Arial" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="Age_table" cache="true" contentDisplay="TOP" layoutX="305.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClick2" prefHeight="43.0" prefWidth="170.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Age  =" textFill="#f8f8f8">
+                                          <Button fx:id="Age_table" cache="true" contentDisplay="TOP" layoutX="305.0" layoutY="416.0" mnemonicParsing="false" onAction="#initialize4" prefHeight="43.0" prefWidth="170.0" style="-fx-background-color: #5a6b52; -fx-border-radius: 50; -fx-background-radius: 50;" text="Age  =" textFill="#f8f8f8">
                                              <opaqueInsets>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </opaqueInsets>

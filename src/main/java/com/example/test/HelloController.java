@@ -136,6 +136,22 @@ public class HelloController {
     private ObservableList<Passenger_table> dataList = FXCollections.observableArrayList();
 
 
+    @FXML
+    private TextField Nationality_Filter;
+    @FXML
+    private Button Nationality_table;
+
+    @FXML
+    private TextField min;
+    @FXML
+    private TextField max;
+    @FXML
+    private Button promocode_table;
+
+    @FXML
+    private TextField age;
+    @FXML
+    private Button Age_table;
 
 
 
@@ -574,14 +590,241 @@ public class HelloController {
         }
     }
 
-    private void showAlert(AlertType alertType, String title, String headerText, String contentText) {
+    @FXML
+    public void initialize2() {
+        // Set up the table columns
+        id_t.setCellValueFactory(new PropertyValueFactory<>("id_t"));
+        name_t.setCellValueFactory(new PropertyValueFactory<>("name_t"));
+        nationality_t.setCellValueFactory(new PropertyValueFactory<>("nationality_t"));
+        Gender_t.setCellValueFactory(new PropertyValueFactory<>("Gender_t"));
+        contact_t.setCellValueFactory(new PropertyValueFactory<>("contact_t"));
+        Address_t.setCellValueFactory(new PropertyValueFactory<>("Address_t"));
+        Promocpde_t.setCellValueFactory(new PropertyValueFactory<>("Promocpde_t"));
+        bank_T.setCellValueFactory(new PropertyValueFactory<>("bank_T"));
+        Passport_t.setCellValueFactory(new PropertyValueFactory<>("Passport_t"));
+
+        // Set button action
+        Nationality_table.setOnAction(event -> NationalityeSearch());
+    }
+
+    private void NationalityeSearch() {
+        String nationality = Nationality_Filter.getText().trim();
+        if (nationality.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Input Error", "Input Error", "Please enter a nationality.");
+            return;
+        }
+
+        String url = "jdbc:postgresql://localhost:5432/Airport_DataBase";
+        String user = "postgres";
+        String password = "12345678";
+
+        String qry = "SELECT p.p_id, p.P_Name, p.Nationality, p.Gender, p.Contact, p.Address, pas.passport_num, pas.promocode, p.PAN_Acc "
+                + "FROM person p "
+                + "JOIN passenger pas ON p.p_id = pas.p_id "
+                + "WHERE p.Nationality = ?";
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = con.prepareStatement(qry)) {
+
+            // Set the nationality parameter
+            pstmt.setString(1, nationality);
+
+            // Execute query
+            ResultSet rs = pstmt.executeQuery();
+
+            // Clear existing data
+            dataList.clear();
+
+            // Process result set
+            while (rs.next()) {
+                int id_t = rs.getInt("p_id");
+                String name_t = rs.getString("P_Name");
+                String nationality_t = rs.getString("Nationality");
+                String Gender_t = rs.getString("Gender");
+                String contact_t = rs.getString("Contact");
+                String Address_t = rs.getString("Address");
+                int Promocpde_t = rs.getInt("promocode");
+                int bank_T = rs.getInt("PAN_Acc");
+                int Passport_t = rs.getInt("passport_num");
+
+                // Create Passenger_table object and add to list
+                Passenger_table passenger = new Passenger_table(id_t, name_t, nationality_t, Gender_t,
+                        contact_t, Address_t, Promocpde_t, bank_T, Passport_t);
+                dataList.add(passenger);
+            }
+
+            // Set data to TableView
+            Passenger_table.setItems(dataList);
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to fetch data from database.", e.getMessage());
+        }
+    }
+
+    @FXML
+    public void initialize3() {
+        // Set up the table columns
+        id_t.setCellValueFactory(new PropertyValueFactory<>("id_t"));
+        name_t.setCellValueFactory(new PropertyValueFactory<>("name_t"));
+        nationality_t.setCellValueFactory(new PropertyValueFactory<>("nationality_t"));
+        Gender_t.setCellValueFactory(new PropertyValueFactory<>("Gender_t"));
+        contact_t.setCellValueFactory(new PropertyValueFactory<>("contact_t"));
+        Address_t.setCellValueFactory(new PropertyValueFactory<>("Address_t"));
+        Promocpde_t.setCellValueFactory(new PropertyValueFactory<>("Promocpde_t"));
+        bank_T.setCellValueFactory(new PropertyValueFactory<>("bank_T"));
+        Passport_t.setCellValueFactory(new PropertyValueFactory<>("Passport_t"));
+
+        // Set button action
+        promocode_table.setOnAction(event -> promoeSearch());
+    }
+
+    private void promoeSearch() {
+
+        // Ensure both fields are filled before converting to int
+        if (min.getText().isEmpty() || max.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Input Error", "Input Error", "Please enter both minimum and maximum promo code values.");
+            return;
+        }
+
+        // Convert inputs to integers
+        int minn = Integer.parseInt(min.getText());
+        int maxx = Integer.parseInt(max.getText());
+
+        String url = "jdbc:postgresql://localhost:5432/Airport_DataBase";
+        String user = "postgres";
+        String password = "12345678";
+
+        String qry = "SELECT p.p_id, p.P_Name, p.Nationality, p.Gender, p.Contact, p.Address, pas.passport_num, pas.promocode, p.PAN_Acc "
+                + "FROM person p "
+                + "JOIN passenger pas ON p.p_id = pas.p_id "
+                + "WHERE pas.promocode >= ? AND pas.promocode <= ?";
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = con.prepareStatement(qry)) {
+
+            // Set the promo code range parameters
+            pstmt.setInt(1, minn);
+            pstmt.setInt(2, maxx);
+
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+
+            // Clear existing data
+            dataList.clear();
+
+            // Process the result set
+            while (rs.next()) {
+                int id_t = rs.getInt("p_id");
+                String name_t = rs.getString("P_Name");
+                String nationality_t = rs.getString("Nationality");
+                String Gender_t = rs.getString("Gender");
+                String contact_t = rs.getString("Contact");
+                String Address_t = rs.getString("Address");
+                int Promocpde_t = rs.getInt("promocode");
+                int bank_T = rs.getInt("PAN_Acc");
+                int Passport_t = rs.getInt("passport_num");
+
+                // Create Passenger_table object and add it to the list
+                Passenger_table passenger = new Passenger_table(id_t, name_t, nationality_t, Gender_t,
+                        contact_t, Address_t, Promocpde_t, bank_T, Passport_t);
+                dataList.add(passenger);
+            }
+
+            // Set data to TableView
+            Passenger_table.setItems(dataList);
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to fetch data from the database.", e.getMessage());
+        }
+    }
+
+    public void initialize4() {
+        // Set up the table columns
+        id_t.setCellValueFactory(new PropertyValueFactory<>("id_t"));
+        name_t.setCellValueFactory(new PropertyValueFactory<>("name_t"));
+        nationality_t.setCellValueFactory(new PropertyValueFactory<>("nationality_t"));
+        Gender_t.setCellValueFactory(new PropertyValueFactory<>("Gender_t"));
+        contact_t.setCellValueFactory(new PropertyValueFactory<>("contact_t"));
+        Address_t.setCellValueFactory(new PropertyValueFactory<>("Address_t"));
+        Promocpde_t.setCellValueFactory(new PropertyValueFactory<>("Promocpde_t"));
+        bank_T.setCellValueFactory(new PropertyValueFactory<>("bank_T"));
+        Passport_t.setCellValueFactory(new PropertyValueFactory<>("Passport_t"));
+
+        // Set button action
+        Age_table.setOnAction(event -> AgeeSearch());
+    }
+
+    private void AgeeSearch() {
+        // Ensure both fields are filled before converting to int
+        if (age.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Input Error", "Input Error", "Please enter both minimum and maximum promo code values.");
+            return;
+        }
+
+        // Convert inputs to integers
+        int agee = Integer.parseInt(age.getText());
+
+
+
+        String url = "jdbc:postgresql://localhost:5432/Airport_DataBase";
+        String user = "postgres";
+        String password = "12345678";
+
+        String qry = "SELECT p.p_id, p.P_Name, p.Nationality, p.Gender, p.Contact, p.Address, pas.passport_num, pas.promocode, p.PAN_Acc "
+                + "FROM person p "
+                + "JOIN passenger pas ON p.p_id = pas.p_id "
+                + "WHERE EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.dateofbirth)) =  ?";
+
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = con.prepareStatement(qry)) {
+
+            // Set the nationality parameter
+            pstmt.setInt(1, agee);
+
+            // Execute query
+            ResultSet rs = pstmt.executeQuery();
+
+            // Clear existing data
+            dataList.clear();
+
+            // Process result set
+            while (rs.next()) {
+                int id_t = rs.getInt("p_id");
+                String name_t = rs.getString("P_Name");
+                String nationality_t = rs.getString("Nationality");
+                String Gender_t = rs.getString("Gender");
+                String contact_t = rs.getString("Contact");
+                String Address_t = rs.getString("Address");
+                int Promocpde_t = rs.getInt("promocode");
+                int bank_T = rs.getInt("PAN_Acc");
+                int Passport_t = rs.getInt("passport_num");
+
+                // Create Passenger_table object and add to list
+                Passenger_table passenger = new Passenger_table(id_t, name_t, nationality_t, Gender_t,
+                        contact_t, Address_t, Promocpde_t, bank_T, Passport_t);
+                dataList.add(passenger);
+            }
+
+            // Set data to TableView
+            Passenger_table.setItems(dataList);
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to fetch data from database.", e.getMessage());
+        }
+    }
+
+
+    private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
         alert.showAndWait();
     }
+
 }
+
 
 
 
